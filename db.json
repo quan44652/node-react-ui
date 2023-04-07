@@ -1,31 +1,15 @@
 {
   "products": [
     {
-      "id": 1,
-      "name": "json-server",
-      "price": 12000,
-      "image": "https://picsum.photos/150/150",
-      "description": "typicode",
-      "categoryId": 1
-    },
-    {
-      "id": 2,
-      "name": "json-server",
-      "price": 12000,
-      "image": "https://picsum.photos/150/150",
-      "description": "typicode",
-      "categoryId": 2
-    },
-    {
-      "id": 3,
-      "name": "json-server",
-      "price": 12000,
-      "image": "https://picsum.photos/150/150",
-      "description": "typicode",
-      "categoryId": 3
+      "name": "123",
+      "price": "123",
+      "image": "https://res.cloudinary.com/dl3q8klyg/image/upload/v1680795459/portfolio/yjlrw40kofzigrpiwli8.png",
+      "description": "123",
+      "categoryId": 1,
+      "id": 7
     }
   ],
-  "category": [
+  "categories": [
     {
       "id": 1,
       "name": "shoppe"
@@ -33,11 +17,14 @@
     {
       "id": 2,
       "name": "lazada"
-    },
+    }
+  ],
+  "users": [
     {
-      "id": 3,
-      "name": "tiki"
+      "email": "123",
+      "name": "123",
+      "image": "https://res.cloudinary.com/dl3q8klyg/image/upload/v1680794494/portfolio/mj9xjo6vlnnxbkzd9bbr.png",
+      "id": 3
     }
   ]
-
 }
