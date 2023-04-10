@@ -11,6 +11,13 @@ interface IProps {
 }
 
 const AddCategory = (props: IProps) => {
+  const validateTrim = (rule: any, value: string, callback: any) => {
+    if (value.trim() === "") {
+      callback("Không được nhập khoảng trắng hoặc chuỗi rỗng");
+    } else {
+      callback();
+    }
+  };
   const onFinish = (values: ICategory) => {
     props.onAdd(values);
   };
@@ -30,7 +37,10 @@ const AddCategory = (props: IProps) => {
         <Form.Item
           label="Name"
           name="name"
-          rules={[{ required: true, message: "Please input name!" }]}
+          rules={[
+            { required: true, message: "Please input name!" },
+            { validator: validateTrim },
+          ]}
         >
           <Input />
         </Form.Item>

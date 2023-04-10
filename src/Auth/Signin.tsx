@@ -1,17 +1,19 @@
 import { Button, Checkbox, Form, Input } from "antd";
-import { IUser } from "../Types";
+import { ILogin, IUser } from "../Types";
 
 const onFinishFailed = (errorInfo: any) => {
   console.log("Failed:", errorInfo);
 };
-const Login = () => {
-  const onFinish = (values: IUser) => {
-    console.log("Success:", values);
-    // onSignin(values);
+interface IProps {
+  onSignin: (values: ILogin) => void;
+}
+const Signin = (props: IProps) => {
+  const onFinish = (values: ILogin) => {
+    props.onSignin({ email: values.email, password: values.password });
   };
   return (
     <div>
-      <h1 style={{ textAlign: "center", marginTop: 50 }}>Đăng nhập</h1>
+      <h1 style={{ textAlign: "center", margin: 40 }}>Đăng nhập</h1>
       <Form
         name="basic"
         labelCol={{
@@ -82,4 +84,4 @@ const Login = () => {
     </div>
   );
 };
-export default Login;
+export default Signin;

@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface IProps {
   categories: ICategory[];
-  onRemove: (id: number) => void;
+  onRemove: (id: string) => void;
 }
 
 const AdminCategory = (props: IProps) => {
@@ -33,7 +33,7 @@ const AdminCategory = (props: IProps) => {
             placement="top"
             title=""
             description="Bạn có muốn xóa sản phẩm này ???"
-            onConfirm={() => props.onRemove(record.id)}
+            onConfirm={() => props.onRemove(record._id)}
             okText="Yes"
             cancelText="No"
           >
@@ -44,7 +44,7 @@ const AdminCategory = (props: IProps) => {
           <Button type="primary">
             <Link
               className="text-decoration-none"
-              to={"/admin/category/update/" + record.id}
+              to={"/admin/category/update/" + record._id}
             >
               Update
             </Link>
@@ -56,14 +56,7 @@ const AdminCategory = (props: IProps) => {
 
   const [categoryList, setCategoryList] = useState<ICategory[]>([]);
   useEffect(() => {
-    setCategoryList(
-      props.categories.map((item): ICategory => {
-        return {
-          key: item.id,
-          ...item,
-        };
-      })
-    );
+    setCategoryList(props.categories);
   }, [props.categories]);
   const handleSearch = (value: string) => {
     const newCategory = props.categories.filter((item) => {
@@ -71,14 +64,7 @@ const AdminCategory = (props: IProps) => {
         return item;
       }
     });
-    setCategoryList(
-      newCategory.map((category): ICategory => {
-        return {
-          key: category.id,
-          ...category,
-        };
-      })
-    );
+    setCategoryList(newCategory);
   };
 
   return (

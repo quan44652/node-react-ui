@@ -20,7 +20,7 @@ library.add(faSearch);
 interface IProps {
   products: IProducts[];
   categories: ICategory[];
-  onRemove: (id: number) => void;
+  onRemove: (id: string) => void;
 }
 const AdminProducts = (props: IProps): any => {
   const columns: ColumnsType<IProducts> = [
@@ -50,8 +50,8 @@ const AdminProducts = (props: IProps): any => {
       dataIndex: "categoryId",
       key: "categoryId",
       render: (categoryId) =>
-        props.categories.find((item: ICategory) => item.id === categoryId)
-          ?.name,
+        props.categories.find((item: ICategory) => item._id === categoryId)
+          ?.name || "Chưa có danh mục",
     },
     {
       title: "Description",
@@ -68,7 +68,7 @@ const AdminProducts = (props: IProps): any => {
             placement="top"
             title=""
             description="Bạn có muốn xóa sản phẩm này ???"
-            onConfirm={() => props.onRemove(record.id)}
+            onConfirm={() => props.onRemove(record._id)}
             okText="Yes"
             cancelText="No"
           >
@@ -79,7 +79,7 @@ const AdminProducts = (props: IProps): any => {
           <Button type="primary">
             <Link
               className="text-decoration-none"
-              to={"/admin/products/update/" + record.id}
+              to={"/admin/products/update/" + record._id}
             >
               Update
             </Link>
@@ -90,14 +90,7 @@ const AdminProducts = (props: IProps): any => {
   ];
   const [listProducts, setListProducts] = useState<IProducts[]>([]);
   useEffect(() => {
-    setListProducts(
-      props.products.map((product): IProducts => {
-        return {
-          key: product.id,
-          ...product,
-        };
-      })
-    );
+    setListProducts(props.products);
   }, [props.products]);
   const handleSearch = (value: string) => {
     const newProducts = props.products.filter((item) => {
@@ -105,14 +98,7 @@ const AdminProducts = (props: IProps): any => {
         return item;
       }
     });
-    setListProducts(
-      newProducts.map((product): IProducts => {
-        return {
-          key: product.id,
-          ...product,
-        };
-      })
-    );
+    setListProducts(newProducts);
   };
 
   return (

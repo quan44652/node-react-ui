@@ -10,21 +10,28 @@ const onFinishFailed = (errorInfo: any) => {
 };
 
 interface IProps {
-  onUpdate: (id: number, category: ICategory) => void;
+  onUpdate: (id: string | undefined, category: ICategory) => void;
 }
 
 const UpdateCategory: any = (props: IProps) => {
+  const validateTrim = (rule: any, value: string, callback: any) => {
+    if (value.trim() === "") {
+      callback("Không được nhập khoảng trắng hoặc chuỗi rỗng");
+    } else {
+      callback();
+    }
+  };
   const [categoryCurrent, setCategoryCurrent] = useState({});
   const { id } = useParams();
 
   useEffect(() => {
-    fetchData({ method: "getOne", url: "/categories", id: Number(id) }).then(
-      (data) => setCategoryCurrent(data)
+    fetchData({ method: "getOne", url: "/categories", id: id }).then((data) =>
+      setCategoryCurrent(data)
     );
   }, []);
   console.log(categoryCurrent);
   const onFinish = (values: ICategory) => {
-    props.onUpdate(Number(id), { name: values.name, id: Number(id) });
+    props.onUpdate(id, values);
   };
   if (Object.keys(categoryCurrent).length === 0) {
     return;
@@ -45,7 +52,10 @@ const UpdateCategory: any = (props: IProps) => {
         <Form.Item
           label="Name"
           name="name"
-          rules={[{ required: true, message: "Please input name!" }]}
+          rules={[
+            { required: true, message: "Please input name!" },
+            { validator: validateTrim },
+          ]}
         >
           <Input />
         </Form.Item>

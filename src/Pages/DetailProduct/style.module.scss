@@ -1,0 +1,34 @@
+.wrapper {
+    padding:24px 200px;
+    h4 {
+        margin: 24px  0;
+        font-size: 32px;
+    } 
+}
+
+.product {
+    display: flex;
+    .product_img {
+        overflow: hidden;
+       width: 400px;
+       height: 500px;
+        img {
+            width: 100vh;
+            height: 100%;
+        }
+    }
+}
+
+.product_info {
+    padding: 100px;
+    flex: 1;
+    h2 {
+        font-size: 24px;
+        padding-bottom: 32px;
+        display: block;
+    }
+    h6 {
+        color: #FF424E;
+        font-size: 32px;
+    }
+}

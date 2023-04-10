@@ -18,6 +18,13 @@ interface IProps {
 }
 
 const AddProduct = (props: IProps) => {
+  const validateTrim = (rule: any, value: string, callback: any) => {
+    if (value.trim() === "") {
+      callback("Không được nhập khoảng trắng hoặc chuỗi rỗng");
+    } else {
+      callback();
+    }
+  };
   const [uploadFile, setUploadFile] = useState<string>("");
   const onFinish = (values: any) => {
     props.onAdd({
@@ -56,7 +63,10 @@ const AddProduct = (props: IProps) => {
         <Form.Item
           label="Name"
           name="name"
-          rules={[{ required: true, message: "Please input name!" }]}
+          rules={[
+            { required: true, message: "Please input name!" },
+            { validator: validateTrim },
+          ]}
         >
           <Input />
         </Form.Item>
@@ -71,6 +81,7 @@ const AddProduct = (props: IProps) => {
               message: "Please input a valid number!",
               transform: (value) => Number(value),
             },
+            { validator: validateTrim },
           ]}
         >
           <Input />
@@ -91,7 +102,10 @@ const AddProduct = (props: IProps) => {
         <Form.Item
           label="Description"
           name="description"
-          rules={[{ required: true, message: "Please input  description!" }]}
+          rules={[
+            { required: true, message: "Please input  description!" },
+            { validator: validateTrim },
+          ]}
         >
           <Input />
         </Form.Item>
@@ -103,7 +117,7 @@ const AddProduct = (props: IProps) => {
         >
           <Select placeholder="Chọn Danh Mục">
             {props.categories.map((item) => (
-              <Select.Option key={item.id} value={item.id}>
+              <Select.Option key={item._id} value={item._id}>
                 {item.name}
               </Select.Option>
             ))}

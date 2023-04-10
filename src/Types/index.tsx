@@ -1,6 +1,6 @@
 export interface IProducts {
   key?: number;
-  id?: number;
+  _id?: string;
   name: string;
   price: number;
   description: string;
@@ -10,14 +10,27 @@ export interface IProducts {
 
 export interface ICategory {
   key?: number;
-  id: number;
+  _id?: string;
   name: string;
 }
 
 export interface IUser {
   key?: number;
-  id: number;
+  _id?: string;
   name: string;
   email: string;
-  image?: string;
+  pasword: string;
+  role: string;
+}
+
+export interface IRegister {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+export interface ILogin {
+  email: string;
+  password: string;
 }

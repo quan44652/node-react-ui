@@ -1,12 +1,22 @@
 import { Button, Checkbox, Form, Input } from "antd";
-import { IUser } from "../Types";
+import { IRegister } from "../Types";
 
 const onFinishFailed = (errorInfo: any) => {
   console.log("Failed:", errorInfo);
 };
-const Register = () => {
-  const onFinish = (values: IUser) => {
-    // console.log("Success:", values);
+interface IProps {
+  onSignup: (values: IRegister) => void;
+}
+const Signup = (props: IProps) => {
+  const validateTrim = (rule: any, value: string, callback: any) => {
+    if (value.trim() === "") {
+      callback("Không được nhập khoảng trắng hoặc chuỗi rỗng");
+    } else {
+      callback();
+    }
+  };
+  const onFinish = (values: IRegister) => {
+    props.onSignup(values);
   };
   return (
     <div>
@@ -38,6 +48,9 @@ const Register = () => {
               required: true,
               message: "Please input your Full Name!",
             },
+            {
+              validator: validateTrim,
+            },
           ]}
         >
           <Input />
@@ -49,7 +62,11 @@ const Register = () => {
           rules={[
             {
               required: true,
-              message: "Please input your username!",
+              message: "Please input your email!",
+            },
+            { type: "email", message: "Email không đúng định dạng!" },
+            {
+              validator: validateTrim,
             },
           ]}
         >
@@ -71,7 +88,7 @@ const Register = () => {
 
         <Form.Item
           label="Confirm Password"
-          name="confirm_password"
+          name="confirmPassword"
           rules={[
             {
               required: true,
@@ -95,4 +112,4 @@ const Register = () => {
     </div>
   );
 };
-export default Register;
+export default Signup;
